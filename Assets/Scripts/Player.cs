@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _fireRate = 0.15f;
     private float _canFire = -1f;
+    private int _lives = 3;
 
     void Start()
     {
@@ -35,7 +36,6 @@ public class Player : MonoBehaviour
         }
     }
 
-
     void MovementPlayer()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -52,6 +52,16 @@ public class Player : MonoBehaviour
         else if (transform.position.x <= -11.25f)
         {
             transform.position = new Vector3(11f, transform.position.y, 0);
+        }
+    }
+
+    public void Damage()
+    {
+        _lives --;
+
+        if(_lives < 1)
+        {
+            Destroy(this.gameObject);
         }
     }
 }

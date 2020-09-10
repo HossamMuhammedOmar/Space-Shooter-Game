@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    // Speed Variable
+    [SerializeField]
     private float _speed = 8f;
 
 
@@ -14,7 +14,6 @@ public class Laser : MonoBehaviour
         DestroyLaser();
     }
 
-    // Go Infinty Up
     void GoUp()
     {
         transform.Translate(Vector3.up * _speed * Time.deltaTime);

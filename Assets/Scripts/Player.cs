@@ -11,10 +11,12 @@ public class Player : MonoBehaviour
     private float _fireRate = 0.15f;
     private float _canFire = -1f;
     private int _lives = 3;
+    private Spwan_Manager spwanManager;
 
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
+        spwanManager = GameObject.Find("Spwan_Manager").GetComponent<Spwan_Manager>();
     }
 
     // Update is called once per frame
@@ -61,6 +63,7 @@ public class Player : MonoBehaviour
 
         if(_lives < 1)
         {
+            spwanManager.OnPlayerDeath();
             Destroy(this.gameObject);
         }
     }

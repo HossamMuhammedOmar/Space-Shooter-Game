@@ -6,11 +6,6 @@ public class Enemy : MonoBehaviour
 {
     private float _enemySpeed = 4.0f; 
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         MoveDown();
@@ -40,14 +35,14 @@ public class Enemy : MonoBehaviour
             {
                 player.Damage();
             }
-            ReInintEnemy();
+            Destroy(this.gameObject);
         }
 
         if (other.tag == "Laser")
         {
             GameObject laser = other.gameObject;
             Destroy(laser);
-            ReInintEnemy();
+            Destroy(this.gameObject);
         }
     }
 }

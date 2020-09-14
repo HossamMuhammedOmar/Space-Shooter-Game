@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     private float _canFire = -1f;
     private int _lives = 3;
     private Spwan_Manager spwanManager;
+    private bool _isTripleActive = false;
+    [SerializeField]
+    private GameObject _laserTriplePrefab;
 
     void Start()
     {
@@ -29,12 +32,19 @@ public class Player : MonoBehaviour
 
     void SpwanLaser()
     {
-        Vector3 offsit = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+        Vector3 offsit = new Vector3(transform.position.x, transform.position.y + 1.05f, transform.position.z);
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             _canFire = Time.time + _fireRate;
-            Instantiate(_laserPrefab, offsit, Quaternion.identity);
+
+            if(_isTripleActive)
+            {
+                Instantiate(_laserTriplePrefab, transform.position, Quaternion.identity);
+            } else
+            {
+                Instantiate(_laserPrefab, offsit, Quaternion.identity);
+            }
         }
     }
 
@@ -66,5 +76,21 @@ public class Player : MonoBehaviour
             spwanManager.OnPlayerDeath();
             Destroy(this.gameObject);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "TripleShot")
+        {
+            Destroy(collision.gameObject);
+            StartCoroutine(TripleShotActive());
+        }
+    }
+
+    IEnumerator TripleShotActive()
+    {
+        _isTripleActive = true;
+        yield return new WaitForSeconds(5f);
+        _isTripleActive = false;
     }
 }

@@ -9,18 +9,16 @@ public class Spwan_Manager : MonoBehaviour
     [SerializeField]
     private GameObject _enemy_container;
     private bool _stopSpwaning = false;
+    [SerializeField]
+    private GameObject _tripleShot;
 
     void Start()
     {
-        StartCoroutine(SpwanRoutine());
+        StartCoroutine(SpwanEnemyRoutine());
+        StartCoroutine(SpawnPowerupRoutine());
     }
 
-    void Update()
-    {
-
-    }
-
-    IEnumerator SpwanRoutine()
+    IEnumerator SpwanEnemyRoutine()
     {
         while(!_stopSpwaning)
         {
@@ -29,6 +27,19 @@ public class Spwan_Manager : MonoBehaviour
             newEnemy.transform.parent = _enemy_container.transform;
             yield return new WaitForSeconds(2f);
         }
+    }
+
+    IEnumerator SpawnPowerupRoutine()
+    {
+        while(!_stopSpwaning)
+        {
+            yield return new WaitForSeconds(7f);
+            float randomX = Random.Range(9.15f, -9.15f);
+            Vector3 posToSpawn = new Vector3(randomX, 7.76f, 0);
+            Instantiate(_tripleShot, posToSpawn, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(7, 15));
+        }
+        
     }
 
     public void OnPlayerDeath()

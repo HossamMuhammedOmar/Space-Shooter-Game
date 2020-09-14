@@ -11,7 +11,11 @@ public class Laser : MonoBehaviour
     void Update()
     {
         GoUp();
-        DestroyLaser();
+
+        if (transform.position.y >= 7.08f)
+        {
+            DestroyLaser();
+        }
     }
 
     void GoUp()
@@ -21,9 +25,11 @@ public class Laser : MonoBehaviour
 
     void DestroyLaser()
     {
-        if(transform.position.y >= 7.08f)
+        if (gameObject.transform.parent != null)
         {
-            Destroy(this.gameObject);
+            Destroy(transform.parent.gameObject);
         }
+
+        Destroy(this.gameObject);
     }
 }

@@ -26,21 +26,21 @@ public class Enemy : MonoBehaviour
         transform.position = new Vector3(randomX, 7f, 0);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(other.tag == "Player")
+        if (collision.tag == "Player")
         {
-            Player player = other.GetComponent<Player>();
-            if(player != null)
+            Player player = collision.GetComponent<Player>();
+            if (player != null)
             {
                 player.Damage();
             }
             Destroy(this.gameObject);
         }
 
-        if (other.tag == "Laser")
+        if (collision.tag == "Laser")
         {
-            GameObject laser = other.gameObject;
+            GameObject laser = collision.gameObject;
             Destroy(laser);
             Destroy(this.gameObject);
         }

@@ -39,12 +39,10 @@ public class Spwan_Manager : MonoBehaviour
             Instantiate(_tripleShot, posToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(7, 15));
         }
-        
     }
 
     public void OnPlayerDeath()
     {
         _stopSpwaning = true;
     }
-
 }

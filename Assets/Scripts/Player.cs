@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 4f;
+    [SerializeField]
+    private float _speed = 4f;
+    private float _multiplySpeed = 2f;
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
@@ -15,6 +17,7 @@ public class Player : MonoBehaviour
     private bool _isTripleActive = false;
     [SerializeField]
     private GameObject _laserTriplePrefab;
+    private bool _isSpeedPoweActive = false;
 
     void Start()
     {
@@ -22,7 +25,6 @@ public class Player : MonoBehaviour
         spwanManager = GameObject.Find("Spwan_Manager").GetComponent<Spwan_Manager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         MovementPlayer();
@@ -53,8 +55,7 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 deriction = new Vector3(horizontalInput, verticalInput, 0);
-
-        transform.Translate(deriction * speed * Time.deltaTime);
+        transform.Translate(deriction * _speed * Time.deltaTime);
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.961581f, 0f), 0);
 
         if (transform.position.x >= 11f)
@@ -78,19 +79,29 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.tag == "TripleShot")
-        {
-            Destroy(collision.gameObject);
-            StartCoroutine(TripleShotActive());
-        }
-    }
-
-    IEnumerator TripleShotActive()
+    public void TripleShotActive()
     {
         _isTripleActive = true;
+        StartCoroutine(SetTrippleActive());
+    }
+
+    IEnumerator SetTrippleActive()
+    {
         yield return new WaitForSeconds(5f);
         _isTripleActive = false;
+    }
+
+    public void SpeedPowerActive()
+    {
+        _isSpeedPoweActive = true;
+        _speed *= _multiplySpeed;
+        StartCoroutine(setSpeedPowerActive());
+    }
+
+    IEnumerator setSpeedPowerActive()
+    {
+        yield return new WaitForSeconds(5f);
+        _isSpeedPoweActive = false;
+        _speed /= _multiplySpeed;
     }
 }

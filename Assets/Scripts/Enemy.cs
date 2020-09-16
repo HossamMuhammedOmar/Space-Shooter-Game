@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private float _enemySpeed = 5.0f; 
+    private float _enemySpeed = 5.0f;
+    private Player _player;
+
+    private void Start()
+    {
+        _player = GameObject.Find("Player").GetComponent<Player>();    
+    }
 
     void Update()
     {
@@ -30,18 +36,21 @@ public class Enemy : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            Player player = collision.GetComponent<Player>();
-            if (player != null)
+            if (_player != null)
             {
-                player.Damage();
+                _player.Damage();
             }
             Destroy(this.gameObject);
         }
 
         if (collision.tag == "Laser")
         {
-            GameObject laser = collision.gameObject;
-            Destroy(laser);
+            Destroy(collision.gameObject);
+            if(_player != null)
+            {
+                _player.AddToScore(10);
+            }
+
             Destroy(this.gameObject);
         }
     }

@@ -22,9 +22,27 @@ public class Player : MonoBehaviour
     private bool _isShieldActive = false;
     [SerializeField]
     private GameObject _shiledPlayer;
+    [SerializeField]
+    private int _score;
+    private UI_Manager ui_manager;
+    private GameManager gameManager;
 
     void Start()
     {
+        ui_manager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
+        gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+
+
+        if(ui_manager == null)
+        {
+            Debug.Log("The UI Manager equale null");
+        }
+
+        if(gameManager == null)
+        {
+            Debug.Log("The Game Manager equale null");
+        }
+
         transform.position = new Vector3(0, 0, 0);
         spwanManager = GameObject.Find("Spwan_Manager").GetComponent<Spwan_Manager>();
     }
@@ -82,11 +100,13 @@ public class Player : MonoBehaviour
         }
 
         _lives --;
+        ui_manager.UpdateLives(_lives);
 
         if(_lives < 1)
         {
             spwanManager.OnPlayerDeath();
             Destroy(this.gameObject);
+            gameManager.GameOver();
         }
     }
 
@@ -120,5 +140,11 @@ public class Player : MonoBehaviour
     {
         _shiledPlayer.SetActive(true);
         _isShieldActive = true;
+    }
+
+    public void AddToScore(int points)
+    {
+        _score += points;
+        ui_manager.SetScore(_score);
     }
 }

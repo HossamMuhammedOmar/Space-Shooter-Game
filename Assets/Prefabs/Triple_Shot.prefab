@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8696810433740142505}
-  - component: {fileID: 3624213216238275272}
   m_Layer: 0
   m_Name: Triple_Shot
   m_TagString: Untagged
@@ -34,19 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3624213216238275272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8696810433740142504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ee9378bbe28d8f40a1d3d2f070aa4a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _powerupId: 0
 --- !u!1001 &8696810433684406673
 PrefabInstance:
   m_ObjectHideFlags: 0

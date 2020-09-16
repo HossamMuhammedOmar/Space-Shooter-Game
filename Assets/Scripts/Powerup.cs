@@ -45,7 +45,7 @@ public class Powerup : MonoBehaviour
                         player.SpeedPowerActive();
                         break;
                     case 2:
-                        Debug.Log("Shileds");
+                        player.MakeShieldsActive();
                         break;
                 }
             }

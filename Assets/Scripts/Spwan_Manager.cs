@@ -10,7 +10,7 @@ public class Spwan_Manager : MonoBehaviour
     private GameObject _enemy_container;
     private bool _stopSpwaning = false;
     [SerializeField]
-    private GameObject _tripleShot;
+    private GameObject[] powerups;
 
     void Start()
     {
@@ -25,7 +25,7 @@ public class Spwan_Manager : MonoBehaviour
             Vector3 posToSpawn = new Vector3(Random.Range(-9f, 9f), 7f, 0);
             GameObject newEnemy = Instantiate(_enemy_prefab, posToSpawn, Quaternion.identity);
             newEnemy.transform.parent = _enemy_container.transform;
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
         }
     }
 
@@ -36,7 +36,7 @@ public class Spwan_Manager : MonoBehaviour
             yield return new WaitForSeconds(7f);
             float randomX = Random.Range(9.15f, -9.15f);
             Vector3 posToSpawn = new Vector3(randomX, 7.76f, 0);
-            Instantiate(_tripleShot, posToSpawn, Quaternion.identity);
+            Instantiate(powerups[Random.Range(0, powerups.Length)], posToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(7, 15));
         }
     }

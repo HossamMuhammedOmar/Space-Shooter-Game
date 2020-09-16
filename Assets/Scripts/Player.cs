@@ -18,6 +18,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _laserTriplePrefab;
     private bool _isSpeedPoweActive = false;
+    [SerializeField]
+    private bool _isShieldActive = false;
+    [SerializeField]
+    private GameObject _shiledPlayer;
 
     void Start()
     {
@@ -70,6 +74,13 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+        if(_isShieldActive)
+        {
+            _shiledPlayer.SetActive(false);
+            _isShieldActive = false;
+            return;
+        }
+
         _lives --;
 
         if(_lives < 1)
@@ -103,5 +114,11 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(5f);
         _isSpeedPoweActive = false;
         _speed /= _multiplySpeed;
+    }
+
+    public void MakeShieldsActive()
+    {
+        _shiledPlayer.SetActive(true);
+        _isShieldActive = true;
     }
 }

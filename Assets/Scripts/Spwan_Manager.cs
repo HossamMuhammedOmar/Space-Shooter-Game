@@ -12,20 +12,22 @@ public class Spwan_Manager : MonoBehaviour
     [SerializeField]
     private GameObject[] powerups;
 
-    void Start()
+    public void StartSpwaning()
     {
         StartCoroutine(SpwanEnemyRoutine());
         StartCoroutine(SpawnPowerupRoutine());
     }
 
+
     IEnumerator SpwanEnemyRoutine()
     {
+        yield return new WaitForSeconds(3.0f);
         while(!_stopSpwaning)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-9f, 9f), 7f, 0);
             GameObject newEnemy = Instantiate(_enemy_prefab, posToSpawn, Quaternion.identity);
             newEnemy.transform.parent = _enemy_container.transform;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
         }
     }
 

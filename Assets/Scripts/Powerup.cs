@@ -7,6 +7,8 @@ public class Powerup : MonoBehaviour
     private float _speed = 3f;
     [SerializeField]
     private int _powerupId;
+    [SerializeField]
+    private AudioSource _powerupSound;
 
     void Update()
     {
@@ -39,12 +41,15 @@ public class Powerup : MonoBehaviour
                 switch(_powerupId)
                 {
                     case 0:
+                        _powerupSound.Play();
                         player.TripleShotActive();
                         break;
                     case 1:
+                        _powerupSound.Play();
                         player.SpeedPowerActive();
                         break;
                     case 2:
+                        _powerupSound.Play();
                         player.MakeShieldsActive();
                         break;
                 }

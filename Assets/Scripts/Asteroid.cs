@@ -8,6 +8,8 @@ public class Asteroid : MonoBehaviour
     [SerializeField]
     private GameObject _explosion;
     private Spwan_Manager _spwanManager;
+    [SerializeField]
+    private AudioSource _explosionSound;
 
     private void Start()
     {
@@ -23,6 +25,7 @@ public class Asteroid : MonoBehaviour
     {
         if(collision.tag == "Laser")
         {
+            _explosionSound.Play();
             Destroy(collision.gameObject);
             this.gameObject.SetActive(false);
             Instantiate(_explosion, transform.position, Quaternion.identity);

@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
     private GameManager gameManager;
     [SerializeField]
     private GameObject[] _playerEngins;
+    [SerializeField]
+    private AudioSource _laserAudio;
 
     void Start()
     {
@@ -63,8 +65,9 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             _canFire = Time.time + _fireRate;
+            _laserAudio.Play();
 
-            if(_isTripleActive)
+            if (_isTripleActive)
             {
                 Instantiate(_laserTriplePrefab, transform.position, Quaternion.identity);
             } else
